@@ -1,0 +1,1 @@
+import os, jsonpath = "products"class Product():    def search_products(self):        print(os.listdir(path))        product_list = []        for i in os.listdir(path):            with open(f"{path}/{i}/info.json", "r", encoding="utf-8") as file:                d = json.load(file)            product_list.append(d)        return product_list
