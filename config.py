@@ -4,3 +4,11 @@ db_conf = {
     "password": "afitiwedru"
 }
 
+admins = ["91124946"]
+
+def is_admin(ids):
+    if str(ids) in admins:
+        return True
+    else:
+        return False
+

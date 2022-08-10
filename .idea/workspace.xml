@@ -34,8 +34,10 @@
     <setting file="file://$PROJECT_DIR$/order/__init__.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/order/order.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/psyhobot.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pyvenv.cfg" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/requirements.txt" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/text_file.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../post/post/lib/python3.10/site-packages/pymysql/connections.py" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/../post/post/lib/python3.10/site-packages/telebot/__init__.py" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -202,8 +204,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.psyhobot" />
-        <item itemvalue="Python.order" />
         <item itemvalue="Python.gb" />
+        <item itemvalue="Python.order" />
         <item itemvalue="Python.bot" />
         <item itemvalue="Python.game" />
       </list>
