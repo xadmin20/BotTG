@@ -1,5 +1,5 @@
 #version start
-
+from mysql.connector import connect, Error
 import random
 import sqlite3
 import telebot
@@ -8,7 +8,7 @@ from keyboa.keyboards import keyboa_maker
 from telebot import types
 from telebot import TeleBot
 import text_file
-
+import config
 
 bot = telebot.TeleBot('1450495246:AAGQxl6uESY-VtdXJI9Uj-pLipCP7sSQfWg')
 
@@ -42,6 +42,7 @@ def callback_worker(call):
         bot.send_message(call.message.chat.id, reply_markup=kb_fruits, text=text_file.text_1, parse_mode="html")
     elif call.data == "score":
         print(call.message.chat.id)
+        bd()
     elif call.data == "start_kurs":
         print(call.message.chat.id, call.data)
         video = open('static/video_1.mp4', 'rb')
@@ -114,6 +115,22 @@ def callback_worker(call):
 #         msg = bot.send_message(message.chat.id, f'Еще разок')
 #         bot.register_next_step_handler(msg, victorina, game_vic)
 #
+
+def bd():
+    try:
+        with connect(
+                host=config.db_conf["host"],
+                user=config.db_conf["user"],
+                password=config.db_conf["password"],
+        ) as connection:
+            show_db_query = "SHOW DATABASES"
+            with connection.cursor() as cursor:
+                cursor.execute(show_db_query)
+                for db in cursor:
+                    print(db)
+    except Error as e:
+        print(e)
+
 
 def zapis_date(message):
     global zap_d
