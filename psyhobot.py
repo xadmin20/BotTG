@@ -14,7 +14,7 @@ mes_info = ""
 mes_img = ""
 
 
-bot = telebot.TeleBot('1450495246:AAGQxl6uESY-VtdXJI9Uj-pLipCP7sSQfWg')
+bot = telebot.TeleBot('Token')
 
 @bot.message_handler(commands=['start'])
 def start(message):
