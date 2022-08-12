@@ -10,8 +10,11 @@ from telebot import TeleBot
 import text_file
 import config
 
-bot = telebot.TeleBot('1450495246:AAGQxl6uESY-VtdXJI9Uj-pLipCP7sSQfWg')
+mes_info = ""
+mes_img = ""
 
+
+bot = telebot.TeleBot('1450495246:AAGQxl6uESY-VtdXJI9Uj-pLipCP7sSQfWg')
 
 @bot.message_handler(commands=['start'])
 def start(message):
@@ -41,9 +44,10 @@ def callback_worker(call):
         kb_fruits = keyboa_maker(items=button, items_in_row=2)
         bot.send_message(call.message.chat.id, reply_markup=kb_fruits, text=text_file.text_1, parse_mode="html")
     elif call.data == "score":
-        if config.is_admin(call.message.chat.id):
+        if config.is_admin(call.message.chat.id) and config.admin_mode == True:
             print(call.message.chat.id)
-            bd()
+            msg = bot.send_message(call.message.chat.id, f'Пожалуйста введите текст: ')
+            bot.register_next_step_handler(msg, message_db)
         else:
             bot.send_message(call.message.chat.id, "No admin")
     elif call.data == "start_kurs":
@@ -52,21 +56,38 @@ def callback_worker(call):
         bot.send_video(call.message.chat.id, video, timeout=2)
 
 #
-
-def bd():
+@bot.message_handler(content_types=['photo'])
+def handle_docs_photo(message):
     try:
-        with connect(
-                host=config.db_conf["host"],
-                user=config.db_conf["user"],
-                password=config.db_conf["password"],
-        ) as connection:
-            show_db_query = "SHOW DATABASES"
-            with connection.cursor() as cursor:
-                cursor.execute(show_db_query)
-                for db in cursor:
-                    print(db)
-    except Error as e:
-        print(e)
+        chat_id = message.chat.id
+        file_info_1 = bot.get_file(message.photo[-1].file_id)
+        bot.send_message(message.chat.id, str(file_info_1))
+        downloaded_file = bot.download_file(file_info_1.file_path)
+
+        src = dir + '\\' + file_info_1.file_path.split('/')[-1]
+        bot.send_message(message.chat.id, src)
+        with open(src, 'wb') as new_file:
+            new_file.write(downloaded_file)
+        print("photo ok")
+    except Exception as e:
+        bot.reply_to(message, e)
+
+
+def message_db(message):
+    global mes_info
+    mes_info = message.text
+    msg = bot.send_message(message.chat.id, f'Пожалуйста отправьте картинку')
+    bot.register_next_step_handler(msg, send_img)
+
+def send_img(message):
+    global mes_img
+    mes_img = message.text
+    bot.send_message(message.chat.id, mes_info)
+    bot.send_photo(message.chat.id, mes_info)
+
+
+
+
 
 
 def zapis_date(message):

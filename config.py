@@ -4,6 +4,7 @@ db_conf = {
     "password": "afitiwedru"
 }
 
+admin_mode = True
 admins = ["91124946"]
 
 def is_admin(ids):
@@ -11,4 +12,5 @@ def is_admin(ids):
         return True
     else:
         return False
+
 
